@@ -1,23 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import {useState} from 'react'
+import Button from './Button'
+import Input from './Input'
+import Select from './Select'
+import Bill from './Bill'
 
 function App() {
+
+  const[inputvalue,setInputvalue]=useState('');
+  const[percentage1,setPercentage1]=useState(0);
+  const[percentage2,setPercentage2]=useState(0);
+
+
+  function handleClick(){
+    setInputvalue('');
+    setPercentage1(0);
+    setPercentage2(0);
+  }
+  const tip=inputvalue*(percentage1+percentage2)/2/100
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Input inputvalue={inputvalue} setInputvalue={setInputvalue}/>
+      <Select percentage={percentage1} setPercentage={setPercentage1}>How did you like the service?</Select>
+      <Select percentage={percentage2} setPercentage={setPercentage2}>How did your friend like the service?</Select>
+      <Bill tip={tip} inputvalue={inputvalue} percentage1={percentage1} percentage2={percentage2}/>
+      <Button onClick={handleClick}/>
     </div>
   );
 }
